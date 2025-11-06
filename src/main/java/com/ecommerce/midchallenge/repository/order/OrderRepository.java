@@ -14,18 +14,16 @@ import java.util.UUID;
 public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     // 1) USER LISTA SEUS PRÓPRIOS PEDIDOS
-
     List<Order> findByUser(User user);
 
     // 2) TOP 5 USUÁRIOS QUE MAIS GASTARAM (SOMENTE PEDIDOS PAGOS)
-
     @Query(value = """
         SELECT u.name AS userName,
                SUM(o.total_amount) AS totalSpent
         FROM tb_orders o
         JOIN tb_users u ON o.user_id = u.id
         WHERE o.status = 'PAGO'
-        GROUP BY u.id
+        GROUP BY u.id, u.name
         ORDER BY totalSpent DESC
         LIMIT 5
     """, nativeQuery = true)
@@ -33,20 +31,19 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
 
 
     // 3) TICKET MÉDIO POR USUÁRIO (MÉDIA DO VALOR DOS PEDIDOS)
-
     @Query(value = """
         SELECT u.name AS userName,
                AVG(o.total_amount) AS avgTicket
         FROM tb_orders o
         JOIN tb_users u ON o.user_id = u.id
         WHERE o.status = 'PAGO'
-        GROUP BY u.id
+        GROUP BY u.id, u.name
+        ORDER BY avgTicket DESC
     """, nativeQuery = true)
     List<Object[]> findAverageTicketByUser();
 
 
     // 4) FATURAMENTO TOTAL DO MÊS ATUAL
-
     @Query(value = """
         SELECT COALESCE(SUM(o.total_amount), 0)
         FROM tb_orders o
