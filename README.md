@@ -4,7 +4,7 @@ Sistema de gerenciamento de produtos e pedidos para e-commerce com autenticaçã
 
 ---
 
-## 🏗️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 | Tecnologia | Versão | Função |
 |------------|--------|--------|
@@ -18,7 +18,7 @@ Sistema de gerenciamento de produtos e pedidos para e-commerce com autenticaçã
 
 ---
 
-## ⚙️ Como Executar o Projeto
+## Como Executar o Projeto
 
 ### Pré-requisitos
 
@@ -75,9 +75,13 @@ INSERT INTO tb_roles (id, name) VALUES
 INSERT INTO tb_users (id, name, email, password) VALUES 
 (UUID(), 'Admin', 'admin@ecommerce.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy');
 
--- Inserir usuário USER (senha: 123456)
+-- Inserir mais 4 usuários
 INSERT INTO tb_users (id, name, email, password) VALUES 
-(UUID(), 'User', 'user@ecommerce.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy');
+(UUID(), 'Maria Santos', 'maria@ecommerce.com', '$2a$12$ofdlr/7qzcUmJqVnLFPNBOlGe09G23CgoEV3EC.g54B7CkIkyeim.'), -- Senha 12345
+(UUID(), 'Pedro Oliveira', 'pedro@ecommerce.com', '$2a$12$mVNeeWh9Xmt1JnQLSKTvU.K7o23S9un2jz73A0EFkbz103nVCOE3e'), -- Senha 54321
+(UUID(), 'Ana Costa', 'ana@ecommerce.com', '$2a$12$Z49io/9nAmPCwoZbxbJqceAtlu2s1gbPBaTf5uN4cCmY7.hS59cdy'), -- Senha 555555
+(UUID(), 'Carlos Lima', 'carlos@ecommerce.com', '$2a$12$UF5Pixo8xw.HsbbB/GNi1ekn7EywBdSzMR5RL8Prf04WBuV58Xlpu'); -- Senha 01234
+
 
 -- Associar roles aos usuários
 INSERT INTO tb_user_roles (user_id, role_id) 
@@ -85,15 +89,17 @@ SELECT u.id, r.id
 FROM tb_users u, tb_roles r 
 WHERE u.email = 'admin@ecommerce.com' AND r.name = 'ADMIN';
 
+-- Associar todos com a role USER
 INSERT INTO tb_user_roles (user_id, role_id) 
 SELECT u.id, r.id 
 FROM tb_users u, tb_roles r 
-WHERE u.email = 'user@ecommerce.com' AND r.name = 'USER';
+WHERE u.email IN ('maria@ecommerce.com', 'pedro@ecommerce.com', 'ana@ecommerce.com', 'carlos@ecommerce.com') 
+AND r.name = 'USER';
 ```
 
 ---
 
-## 🧪 Testando a API
+## Testando a API
 
 ### 1. Fazer Login
 
@@ -162,7 +168,7 @@ POST http://localhost:8080/api/orders/{orderId}/pay
 
 ---
 
-## 📋 Endpoints Principais
+## Endpoints Principais
 
 ### Autenticação
 - `POST /api/auth/login` - Login (público)
@@ -186,7 +192,7 @@ POST http://localhost:8080/api/orders/{orderId}/pay
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 **Thiago Castro**  
 GitHub: [@ThiagoCastro14](https://github.com/ThiagoCastro14)

@@ -30,6 +30,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ItemOrder> items = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
@@ -52,3 +53,29 @@ public class Order {
         this.updatedAt = LocalDateTime.now();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

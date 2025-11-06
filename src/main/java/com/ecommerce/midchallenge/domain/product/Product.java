@@ -55,5 +55,32 @@ public class Product {
     }
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ItemOrder> items = new ArrayList<>();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
